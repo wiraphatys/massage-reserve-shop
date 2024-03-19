@@ -1,9 +1,56 @@
-import React from 'react'
+"use client"
+
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Swal from 'sweetalert2'
 
 function Navbar() {
+
+    const router = useRouter()
+
+    const handleSignOut = () => {
+
+        Swal.fire({
+            title: "Log Out Confirmation",
+            text: "Are you sure to log out ?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Logout",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem('token')
+
+                Swal.fire({
+                    title: "Log Out",
+                    text: "log out successfully",
+                    icon: "success",
+                    timer: 1500
+                })
+
+                setTimeout(() => {
+                    router.push('/signin')
+                }, 1000)
+            }
+        })
+    }
+    
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, [isLoggedIn]);
+
     return (
         <>
-            <div className="navbar bg-emerald-900 text-gray-300">
+            <div className="navbar bg-emerald-900 text-gray-300 sticky top-0 z-50">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -27,13 +74,31 @@ function Navbar() {
                     <ul className="menu menu-horizontal px-1">
                         <li><a href='/'>Home</a></li>
                         <li><a href='/massages'>Massages</a></li>
-                        <li><a>Reservation</a></li>
+                        <li><a href='/reservations'>Reservation</a></li>
                         <li><a>Contact</a></li>
                         <li><a>About</a></li>
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    {/* <div className="dropdown dropdown-end mr-2">
+                    {isLoggedIn && (
+
+                        <button className='btn btn-error btn-outline btn-sm'
+                            onClick={handleSignOut}
+                        >
+                            Log Out
+                        </button>
+
+                    )}
+                </div>
+            </div>
+        </>
+    )
+}
+
+export default Navbar
+
+
+{/* <div className="dropdown dropdown-end mr-2">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
                                 <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
@@ -45,10 +110,3 @@ function Navbar() {
                             <li><a>Logout</a></li>
                         </ul>
                     </div> */}
-                </div>
-            </div>
-        </>
-    )
-}
-
-export default Navbar

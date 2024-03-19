@@ -18,7 +18,7 @@ function Page() {
 
     return (
         <div className="bg-emerald-100">
-            <div className='container mx-auto lg:w-1/2 min-h-screen'>
+            <div className='container mx-auto lg:w-1/2 min-h-screen px-10 lg:px-0'>
                 <MassageList page={page} />
                 <div className='join grid grid-cols-2 pb-8'>
                     <button className='join-item btn btn-outline btn-error' onClick={decreasePage}>Previous</button>

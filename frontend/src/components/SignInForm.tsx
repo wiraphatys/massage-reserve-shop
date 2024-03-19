@@ -2,9 +2,14 @@
 
 import config from '@/utils/config'
 import axios from 'axios'
+import { error } from 'console'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import Swal from 'sweetalert2'
 
 function SignInForm() {
+
+    const router = useRouter()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -13,10 +18,41 @@ function SignInForm() {
         try {
             e.preventDefault()
             const user = { email, password }
-            const response = await axios.post(`${config.api}/auth/login`, user, {withCredentials: true})
-            console.log("result", response.data)
-        } catch (e) {
+            await axios.post(`${config.api}/auth/login`, user, {withCredentials: true}).then((res) => {
+                if (res.data.success === true) {
+                    Swal.fire({
+                        title: 'Sign In',
+                        text: 'sign in successfully.',
+                        icon: 'success',
+                        timer: 2000
+                    })
+
+                    localStorage.setItem(config.tokenName, res.data.token)
+                    
+                    setTimeout(() => {
+                        router.push('/')
+                    }, 1000)
+
+                } else {
+                    Swal.fire({
+                        title: 'Sign In',
+                        text: `sign in failed ${res.data.message}`,
+                        icon: "error",
+                        timer: 2000
+                    })
+                }
+            }).catch(err => {
+                throw err.response.data;
+            })
+            // console.log("result", response.data)
+        } catch (e: any) {
             console.log(e)
+            Swal.fire({
+                title: 'Sign In',
+                text: `sign in failed ${e.message}`,
+                icon: "error",
+                timer: 2000
+            })
         }
     } 
 
