@@ -21,6 +21,8 @@ function Navbar() {
             if (result.isConfirmed) {
                 localStorage.removeItem('token')
 
+                setIsLoggedIn(!isLoggedIn)
+
                 Swal.fire({
                     title: "Log Out",
                     text: "log out successfully",
@@ -28,9 +30,7 @@ function Navbar() {
                     timer: 1500
                 })
 
-                setTimeout(() => {
-                    router.push('/signin')
-                }, 1000)
+                router.push('/signin')
             }
         })
     }
@@ -74,7 +74,10 @@ function Navbar() {
                     <ul className="menu menu-horizontal px-1">
                         <li><a href='/'>Home</a></li>
                         <li><a href='/massages'>Massages</a></li>
-                        <li><a href='/reservations'>Reservation</a></li>
+                        {
+                            isLoggedIn ? (<li><a href='/reservations'>Reservation</a></li>)
+                            : (<li><a href='/reservations' className='btn-disabled text-gray-400'>Reservation</a></li>)
+                        }
                         <li><a>Contact</a></li>
                         <li><a>About</a></li>
                     </ul>

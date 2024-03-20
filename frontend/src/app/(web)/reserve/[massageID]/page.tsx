@@ -84,12 +84,25 @@ function ReservePage({ params }: Props) {
                 throw new Error("Please select a date.");
             }
         } catch (error: any) {
-            Swal.fire({
-                title: "Error",
-                text: error.message,
-                icon: "error",
-                timer: 2000
-            });
+            if (error.response.data.message === "Not authorize to access this route") {
+                Swal.fire({
+                    title: "Authorized failed",
+                    text: "Please login before reserve a massage service",
+                    icon: "error",
+                    timer: 2000
+                })
+
+                setTimeout(() => {
+                    router.push("/signin")
+                }, 500)
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: error.response.data.message,
+                    icon: "error",
+                    timer: 2000
+                });
+            }
         }
     };
 

@@ -12,6 +12,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PersonIcon from '@mui/icons-material/Person';
+import { useRouter } from 'next/navigation';
 
 interface Props {
     params: {
@@ -58,6 +59,8 @@ function ReservePage({ params }: Props) {
         _id: ""
     });
     const [date, setDate] = useState<Date | null>(null);
+
+    const router = useRouter()
 
     useEffect(() => {
         fetchData();
@@ -108,6 +111,8 @@ function ReservePage({ params }: Props) {
                         icon: "success",
                         timer: 2000
                     });
+
+                    router.push("/reservations")
                 } else {
                     throw new Error(response.data.message);
                 }

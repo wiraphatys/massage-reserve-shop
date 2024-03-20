@@ -57,7 +57,7 @@ function SignInForm() {
     } 
 
   return (
-      <div className="hero min-h-screen bg-emerald-300" >
+      <div className="hero min-h-screen bg-emerald-100" >
           <div className="hero-content flex-col lg:flex-row-reverse">
               <div className="text-center lg:text-left">
                   <h1 className="text-5xl font-bold">Sign In now!</h1>
