@@ -103,7 +103,7 @@ function Navbar() {
                                 <button className='btn btn-ghost'><AccountCircleIcon fontSize="large" /></button>
                             </div>
                             <ul tabIndex={0} className={`menu dropdown-content z-[1] shadow bg-emerald-800 rounded-box w-40 mt-4 p-2`}>
-                                <li><a className='btn btn-success btn-sm text-gray-200 mb-2' href="#">Profile</a></li>
+                                <li><a className='btn btn-success btn-sm text-gray-200 mb-2' href='/profile'>Profile</a></li>
                                 <li><button className='btn btn-error btn-outline btn-sm' onClick={handleSignOut}>Logout</button></li>
                             </ul>
 

@@ -37,7 +37,7 @@ function MassageList() {
     const [searchbox, setSearchbox] = useState<string>('')
     const [searchSubmitBtn, setSearchSubmitBtn] = useState<boolean>(false)
     const [selectedOption, setSelectedOption] = useState<string>('Name');
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
         fetchData()
@@ -112,6 +112,14 @@ function MassageList() {
                                     <span className="label-text p-4">Telephone</span>
                                 </label>
                             </div>
+                            {
+                                massageList.length >= 5 ? (
+                                    <div className='join grid grid-cols-2'>
+                                        <button className={`join-item text-white btn btn-error ${page === 1 ? 'btn-disabled cursor-not-allowed' : ''}`} onClick={decreasePage} disabled={page === 1}>Previous</button>
+                                        <button className={`join-item text-white btn btn-success ${massageList.length === 0 ? 'btn-disabled cursor-not-allowed' : ''}`} onClick={increasePage} disabled={massageList.length !== 25}>Next</button>
+                                    </div>
+                                ) : ''
+                            }
                             <div>
                                 {massageList.map((massage: MassageItem) => (
                                     <div key={massage._id} id={massage._id}
@@ -134,8 +142,8 @@ function MassageList() {
                                 ))}
                             </div>
                             <div className='join grid grid-cols-2 pb-8'>
-                                <button className={`join-item btn btn-outline btn-error ${page === 1 ? 'btn-disabled cursor-not-allowed' : ''}`} onClick={decreasePage} disabled={page === 1}>Previous</button>
-                                <button className={`join-item btn btn-outline btn-success ${massageList.length === 0 ? 'btn-disabled cursor-not-allowed' : ''}`} onClick={increasePage} disabled={massageList.length !== 25}>Next</button>
+                                <button className={`join-item text-white btn btn-error ${page === 1 ? 'btn-disabled cursor-not-allowed' : ''}`} onClick={decreasePage} disabled={page === 1}>Previous</button>
+                                <button className={`join-item text-white btn btn-success ${massageList.length === 0 ? 'btn-disabled cursor-not-allowed' : ''}`} onClick={increasePage} disabled={massageList.length !== 25}>Next</button>
                             </div>
                     </>
                 )

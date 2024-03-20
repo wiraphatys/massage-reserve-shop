@@ -9,6 +9,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PersonIcon from '@mui/icons-material/Person';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
+import Loading from '@/components/Loading';
 
 interface resvItem {
   massage: {
@@ -44,22 +45,26 @@ interface ResponseDelJSON {
 function ReservationPage() {
   const [resvList, setResvList] = useState<resvItem[]>([]);
   const [user, setUser] = useState<UserRole>(Object);
+  const [loading, setLoading] = useState<boolean>(true)
 
   const router = useRouter();
 
   useEffect(() => {
     fetchData();
     fetchUserRole();
-  }, [resvList]);
+  }, []);
 
   const fetchData = async () => {
     try {
+      setLoading(true)
       const response = await axios.get<ResponseResvJSON>(`${config.api}/reservations`, config.headers());
       if (response.data.success === true) {
         setResvList(response.data.data);
       }
     } catch (err: any) {
       console.log(err.message);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -123,39 +128,59 @@ function ReservationPage() {
   }
 
   return (
-    <div className='bg-emerald-100 pb-10'>
-      <div className='container mx-auto lg:w-1/2 min-h-screen px-10 lg:px-0 pt-10'>
-        <p className='text-center text-emerald-900 text-2xl font-bold py-4'>Reservation History</p>
-        {resvList.map((reservation) => (
-          <div key={reservation._id} className='border p-4 mt-4 rounded-xl hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white'>
-            <h2 className='font-bold text-lg'>{reservation.massage.name}</h2>
-            <p className='text-gray-600 my-2'>
-              <LocationOnIcon className='text-teal-400' /> {reservation.massage.address}
-            </p>
-            <p className='text-gray-600 my-2'>
-              <LocalPhoneIcon className='text-teal-400' /> {reservation.massage.tel}
-            </p>
-            <p className='text-gray-600 my-2'>
-              <CalendarMonthIcon className='text-teal-400' /> {formatDate(reservation.resvDate)}
-            </p>
-            {
-              user.role === "admin" ?
-                <p className='text-gray-600 my-2'>
-                  <PersonIcon className='text-teal-400' /> {reservation.user}
-                </p>
-                : ''
-            }
-            <button className='text-white btn btn-accent btn-sm rounded-md mt-2 mr-4'
-              onClick={() => handleEditClick(reservation._id)}
-            >Edit</button>
+    <>
+      {
+        loading ? (
+          <Loading />
+        ) : (
+            <>
+              <div className='bg-emerald-100 pb-10'>
+                <div className='container mx-auto lg:w-1/2 min-h-screen px-10 lg:px-0 pt-10'>
+                  <p className='text-center text-emerald-900 text-2xl font-bold py-4'>Reservation History</p>
 
-            <button className='text-white btn btn-error btn-sm btn-outline rounded-md mt-2'
-              onClick={() => handleDelete(reservation._id)}
-            >Delete</button>
-          </div>
-        ))}
-      </div>
-    </div>
+                  {
+                    resvList.length === 0 ? (
+                      <div className="border p-4 px-8 mt-4 rounded-xl hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white flex justify-between">
+                        <p className='font-semibold mt-1'>Reservation in history is empty.</p>
+                        <a className="btn btn-sm btn-accent text-white" href="/massages">make new reservation</a>
+                      </div>
+                    ) : ''
+                  }
+
+                  {resvList.map((reservation) => (
+                    <div key={reservation._id} className='border p-4 mt-4 rounded-xl hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white'>
+                      <h2 className='font-bold text-lg'>{reservation.massage.name}</h2>
+                      <p className='text-gray-600 my-2'>
+                        <LocationOnIcon className='text-teal-400' /> {reservation.massage.address}
+                      </p>
+                      <p className='text-gray-600 my-2'>
+                        <LocalPhoneIcon className='text-teal-400' /> {reservation.massage.tel}
+                      </p>
+                      <p className='text-gray-600 my-2'>
+                        <CalendarMonthIcon className='text-teal-400' /> {formatDate(reservation.resvDate)}
+                      </p>
+                      {
+                        user.role === "admin" ?
+                          <p className='text-gray-600 my-2'>
+                            <PersonIcon className='text-teal-400' /> {reservation.user}
+                          </p>
+                          : ''
+                      }
+                      <button className='text-white btn btn-accent btn-sm rounded-md mt-2 mr-4'
+                        onClick={() => handleEditClick(reservation._id)}
+                      >Edit</button>
+
+                      <button className='text-white btn btn-error btn-sm btn-outline rounded-md mt-2'
+                        onClick={() => handleDelete(reservation._id)}
+                      >Delete</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+        )
+      }
+    </>
   );
 }
 
