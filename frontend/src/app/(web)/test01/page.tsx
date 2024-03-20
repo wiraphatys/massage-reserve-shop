@@ -1,8 +1,11 @@
+import Loading from '@/components/Loading'
 import React from 'react'
 
 function page() {
   return (
-    <div>page</div>
+    <>
+      <Loading />
+    </>
   )
 }
 

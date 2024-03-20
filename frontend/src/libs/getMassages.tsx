@@ -8,4 +8,4 @@ async function getMassages({url} : {url: string}) {
     return await response.json()
 }
 
-export default getMassages
+export { getMassages }
