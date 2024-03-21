@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import config from '@/utils/config';
 import { useRouter } from 'next/navigation';
+import Loading from '@/components/Loading';
 
 interface Props {
     params: {
@@ -38,6 +39,7 @@ interface ResponseJSON {
 function ReservePage({ params }: Props) {
     const [massage, setMassage] = useState<MassageItem>({ _id: "", name: "", address: "", province: "", tel: "", openTime: "", closeTime: "" });
     const [date, setDate] = useState<Date | null>(null);
+    const [loading, setLoading] = useState(true)
 
     const router = useRouter()
 
@@ -47,10 +49,13 @@ function ReservePage({ params }: Props) {
 
     const fetchData = async () => {
         try {
+            setLoading(true)
             const response: ResponseJSON = await getMassageByID({ mid: params.massageID });
             setMassage(response.data);
         } catch (err) {
             console.log("Error: ", err);
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -107,41 +112,49 @@ function ReservePage({ params }: Props) {
     };
 
     return (
-        <div className='container min-h-screen py-10 lg:py-20 px-10 md:px-0 mx-auto lg:w-1/3'>
-            <p className='font-bold text-3xl text-center pt-6 text-emerald-900'>Massage Shop</p>
-            <div className='border p-4 my-4 rounded-xl hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white'>
-                <h2 className='font-bold text-lg'>{massage.name}</h2>
-                <p className='text-gray-600 my-2'>
-                    <LocationOnIcon className='text-teal-400' /> {massage.address}, {massage.province}
-                </p>
-                <p className='text-gray-600 my-2'>
-                    <LocalPhoneIcon className='text-teal-400' /> {massage.tel}
-                </p>
-                <p className='text-gray-600 my-2'>
-                    <WatchLaterIcon className='text-teal-400' /> {massage.openTime} - {massage.closeTime}
-                </p>
-            </div>
+        <>
+            {
+                loading ? (
+                    <Loading />
+                ) : (
+                        <div className='container min-h-screen py-10 lg:py-20 px-10 md:px-0 mx-auto lg:w-1/3'>
+                            <p className='font-bold text-3xl text-center pt-6 text-emerald-900'>Massage Shop</p>
+                            <div className='border p-4 my-4 rounded-xl hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white'>
+                                <h2 className='font-bold text-lg'>{massage.name}</h2>
+                                <p className='text-gray-600 my-2'>
+                                    <LocationOnIcon className='text-teal-400' /> {massage.address}, {massage.province}
+                                </p>
+                                <p className='text-gray-600 my-2'>
+                                    <LocalPhoneIcon className='text-teal-400' /> {massage.tel}
+                                </p>
+                                <p className='text-gray-600 my-2'>
+                                    <WatchLaterIcon className='text-teal-400' /> {massage.openTime} - {massage.closeTime}
+                                </p>
+                            </div>
 
-            <div className="card shadow-2xl bg-base-100 my-8">
-                <p className='font-bold text-2xl text-center pt-6 text-emerald-900'>Reserve Form</p>
-                <form className="card-body">
-                    <FormControl>
-                        <label className="label">
-                            <span className='label-text'>Date</span>
-                        </label>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker
-                                value={date}
-                                onChange={handleDateChange}
-                            />
-                        </LocalizationProvider>
-                    </FormControl>
-                    <div className="form-control mt-6">
-                        <button className="btn btn-outline btn-success" type="button" onClick={handleReservation}>Confirm</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+                            <div className="card shadow-2xl bg-base-100 my-8">
+                                <p className='font-bold text-2xl text-center pt-6 text-emerald-900'>Reserve Form</p>
+                                <form className="card-body">
+                                    <FormControl>
+                                        <label className="label">
+                                            <span className='label-text'>Date</span>
+                                        </label>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DatePicker
+                                                value={date}
+                                                onChange={handleDateChange}
+                                            />
+                                        </LocalizationProvider>
+                                    </FormControl>
+                                    <div className="form-control mt-6">
+                                        <button className="btn btn-outline btn-success" type="button" onClick={handleReservation}>Confirm</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                )
+            }
+        </>
     );
 }
 

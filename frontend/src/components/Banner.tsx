@@ -22,17 +22,13 @@ function Banner() {
             <div className="hero-content text-center text-white">
                 <div className="max-w-xl">
                     <h1 className="mb-5 text-5xl font-bold">Massage Reservation</h1>
-                    <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                    <p className="mb-5">Discover popular massage spots near you or in your travel destination, with a diverse range of services to choose from.</p>
                     {!isLoggedIn && (
                         <div>
                             <a className="btn btn-success mx-3" href='/signup'>Sign Up</a>
                             <a className="btn btn-outline btn-accent mx-3" href='/signin'>Sign In</a>
                         </div>
                     )}
-                    {/* <div>
-                        <a className="btn btn-success mx-3" href='/signup'>Sign Up</a>
-                        <a className="btn btn-outline btn-accent mx-3" href='/signin'>Sign In</a>
-                    </div> */}
                 </div>
             </div>
         </div>

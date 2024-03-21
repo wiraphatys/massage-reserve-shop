@@ -70,7 +70,7 @@ function MassageList() {
         setPage(1)
     }
 
-    const handleClickBtn = async (massageID: string) => {
+    const handleClickBtn = (massageID: string) => {
         router.push(`/reserve/${massageID}`)
     }
 

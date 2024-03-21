@@ -13,6 +13,7 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PersonIcon from '@mui/icons-material/Person';
 import { useRouter } from 'next/navigation';
+import Loading from '@/components/Loading';
 
 interface Props {
     params: {
@@ -59,6 +60,7 @@ function ReservePage({ params }: Props) {
         _id: ""
     });
     const [date, setDate] = useState<Date | null>(null);
+    const [loading, setLoading] = useState(true)
 
     const router = useRouter()
 
@@ -69,6 +71,7 @@ function ReservePage({ params }: Props) {
 
     const fetchData = async () => {
         try {
+            setLoading(false)
             const response = await axios.get<ResponseResvJSON>(`${config.api}/reservations/${params.reservationID}`, config.headers());
             if (response.data.success === true) {
                 setReservation(response.data.data)
@@ -76,6 +79,8 @@ function ReservePage({ params }: Props) {
             }
         } catch (err: any) {
             console.log("Error: ", err);
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -137,48 +142,56 @@ function ReservePage({ params }: Props) {
     };
 
     return (
-        <div className='container min-h-screen py-10 lg:py-20 px-10 md:px-0 mx-auto lg:w-1/3'>
-            <p className='font-bold text-3xl text-center pt-6 text-emerald-900'>Target Reservation</p>
-            <div className='border p-4 mt-4 rounded-xl hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white'>
-                <h2 className='font-bold text-lg'>{reservation.massage.name}</h2>
-                <p className='text-gray-600 my-2'>
-                    <LocationOnIcon className='text-teal-400' /> {reservation.massage.address}
-                </p>
-                <p className='text-gray-600 my-2'>
-                    <LocalPhoneIcon className='text-teal-400' /> {reservation.massage.tel}
-                </p>
-                <p className='text-gray-600 my-2'>
-                    <CalendarMonthIcon className='text-teal-400' /> {formatDate(reservation.resvDate)}
-                </p>
-                {
-                    user.role === "admin" ?
-                        <p className='text-gray-600 my-2'>
-                            <PersonIcon className='text-teal-400' /> {reservation.user}
-                        </p>
-                        : ''
-                }
-            </div>
+        <>
+            {
+                loading ? (
+                    <Loading />
+                ) : (
+                        <div className='container min-h-screen py-10 lg:py-20 px-10 md:px-0 mx-auto lg:w-1/3'>
+                            <p className='font-bold text-3xl text-center pt-6 text-emerald-900'>Target Reservation</p>
+                            <div className='border p-4 mt-4 rounded-xl hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white'>
+                                <h2 className='font-bold text-lg'>{reservation.massage.name}</h2>
+                                <p className='text-gray-600 my-2'>
+                                    <LocationOnIcon className='text-teal-400' /> {reservation.massage.address}
+                                </p>
+                                <p className='text-gray-600 my-2'>
+                                    <LocalPhoneIcon className='text-teal-400' /> {reservation.massage.tel}
+                                </p>
+                                <p className='text-gray-600 my-2'>
+                                    <CalendarMonthIcon className='text-teal-400' /> {formatDate(reservation.resvDate)}
+                                </p>
+                                {
+                                    user.role === "admin" ?
+                                        <p className='text-gray-600 my-2'>
+                                            <PersonIcon className='text-teal-400' /> {reservation.user}
+                                        </p>
+                                        : ''
+                                }
+                            </div>
 
-            <div className="card shadow-2xl bg-base-100 my-8">
-                <p className='font-bold text-2xl text-center pt-6 text-emerald-900'>Reserve Form</p>
-                <form className="card-body">
-                    <FormControl>
-                        <label className="label">
-                            <span className='label-text'>Date</span>
-                        </label>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker
-                                value={date}
-                                onChange={handleDateChange}
-                            />
-                        </LocalizationProvider>
-                    </FormControl>
-                    <div className="form-control mt-6">
-                        <button className="btn btn-outline btn-success" type="button" onClick={handleReservation}>Confirm</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+                            <div className="card shadow-2xl bg-base-100 my-8">
+                                <p className='font-bold text-2xl text-center pt-6 text-emerald-900'>Reserve Form</p>
+                                <form className="card-body">
+                                    <FormControl>
+                                        <label className="label">
+                                            <span className='label-text'>Date</span>
+                                        </label>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DatePicker
+                                                value={date}
+                                                onChange={handleDateChange}
+                                            />
+                                        </LocalizationProvider>
+                                    </FormControl>
+                                    <div className="form-control mt-6">
+                                        <button className="btn btn-outline btn-success" type="button" onClick={handleReservation}>Confirm</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                )
+            }
+        </>
     );
 }
 

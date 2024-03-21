@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Swal from 'sweetalert2'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import axios from 'axios';
+import config from '@/utils/config';
 
 function Navbar() {
 
@@ -20,20 +22,24 @@ function Navbar() {
             showCancelButton: true,
             confirmButtonText: "Logout",
             cancelButtonText: "Cancel"
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                localStorage.removeItem('token')
+                const response = await axios.get(`${config.api}/auth/logout`)
+                console.log(response)
+                if (response.data.success === true) {
+                    localStorage.removeItem('token')
 
-                setIsLoggedIn(!isLoggedIn)
+                    setIsLoggedIn(!isLoggedIn)
 
-                Swal.fire({
-                    title: "Log Out",
-                    text: "log out successfully",
-                    icon: "success",
-                    timer: 1500
-                })
+                    Swal.fire({
+                        title: "Log Out",
+                        text: "log out successfully",
+                        icon: "success",
+                        timer: 1500
+                    })
 
-                router.push('/signin')
+                    router.push('/signin')
+                }
             }
         })
     }
@@ -66,7 +72,7 @@ function Navbar() {
                                 isLoggedIn ? (<li><a href='/reservations'>Reservation</a></li>)
                                     : (<li><a href='/reservations' className='btn-disabled text-gray-400'>Reservation</a></li>)
                             }
-                            <li><a>Contact</a></li>
+                            <li><a href='/contact'>Contact</a></li>
                             <li><a>About</a></li>
                         </ul>
                     </div>
@@ -84,20 +90,14 @@ function Navbar() {
                             isLoggedIn ? (<li><a href='/reservations'>Reservation</a></li>)
                             : (<li><a href='/reservations' className='btn-disabled text-gray-400'>Reservation</a></li>)
                         }
-                        <li><a>Contact</a></li>
+                        <li><a href='/contact'>Contact</a></li>
                         <li><a>About</a></li>
                     </ul>
                 </div>
 
                 <div className="navbar-end">
                     {isLoggedIn && (
-
-                        // <button className='btn btn-error btn-outline btn-sm'
-                        //     onClick={handleSignOut}
-                        // >
-                        //     Log Out
-                        // </button>
-
+                        
                         <div className="dropdown dropdown-end">
                             <div>
                                 <button className='btn btn-ghost'><AccountCircleIcon fontSize="large" /></button>
