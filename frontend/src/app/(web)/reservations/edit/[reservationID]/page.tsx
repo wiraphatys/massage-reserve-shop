@@ -44,7 +44,8 @@ interface UserRole {
 
 interface ResponseUserJSON {
     success: boolean;
-    data: UserRole
+    data: UserRole;
+    message: string;
 }
 
 function ReservePage({ params }: Props) {
@@ -65,22 +66,21 @@ function ReservePage({ params }: Props) {
     const router = useRouter()
 
     useEffect(() => {
+        setLoading(true)
         fetchData();
         fetchUserRole();
     }, []);
 
     const fetchData = async () => {
         try {
-            setLoading(false)
             const response = await axios.get<ResponseResvJSON>(`${config.api}/reservations/${params.reservationID}`, config.headers());
             if (response.data.success === true) {
                 setReservation(response.data.data)
-                console.log(response.data.data.massage.name)
+            } else {
+                throw new Error("failed to fetch data.")
             }
         } catch (err: any) {
             console.log("Error: ", err);
-        } finally {
-            setLoading(false)
         }
     };
 
@@ -89,9 +89,21 @@ function ReservePage({ params }: Props) {
             const response = await axios.get<ResponseUserJSON>(`${config.api}/auth/me`, config.headers());
             if (response.data.success === true) {
                 setUser(response.data.data)
+
+                setLoading(false)
+            } else {
+                throw new Error(response.data.message)
             }
         } catch (err: any) {
             console.log(err.message)
+            router.push("/")
+
+            Swal.fire({
+                title: "Error",
+                text: err.message,
+                icon: "error",
+                timer: 2000
+            })
         }
     }
 

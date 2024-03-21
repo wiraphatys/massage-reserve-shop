@@ -27,6 +27,8 @@ function Navbar() {
                 const response = await axios.get(`${config.api}/auth/logout`)
                 console.log(response)
                 if (response.data.success === true) {
+
+                    // clear token from browser
                     localStorage.removeItem('token')
 
                     setIsLoggedIn(!isLoggedIn)

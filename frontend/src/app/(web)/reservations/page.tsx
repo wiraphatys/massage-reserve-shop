@@ -34,7 +34,8 @@ interface UserRole {
 
 interface ResponseUserJSON {
   success: boolean;
-  data: UserRole
+  data: UserRole;
+  message: string;
 }
 
 interface ResponseDelJSON {
@@ -50,21 +51,19 @@ function ReservationPage() {
   const router = useRouter();
 
   useEffect(() => {
+    setLoading(true)
     fetchData();
     fetchUserRole();
   }, []);
 
   const fetchData = async () => {
     try {
-      setLoading(true)
       const response = await axios.get<ResponseResvJSON>(`${config.api}/reservations`, config.headers());
       if (response.data.success === true) {
         setResvList(response.data.data);
       }
     } catch (err: any) {
       console.log(err.message);
-    } finally {
-      setLoading(false)
     }
   };
 
@@ -73,9 +72,21 @@ function ReservationPage() {
       const response = await axios.get<ResponseUserJSON>(`${config.api}/auth/me`, config.headers());
       if (response.data.success === true) {
         setUser(response.data.data)
+
+        setLoading(false)
+      } else {
+        throw new Error(response.data.message)
       }
     } catch (err: any) {
       console.log(err.message)
+      router.push("/")
+
+      Swal.fire({
+        title: "Error",
+        text: err.message,
+        icon: "error",
+        timer: 2000
+      })
     }
   }
 
