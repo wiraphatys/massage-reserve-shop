@@ -65,6 +65,11 @@ function MassageList() {
         }
     };
 
+    const handleSearch = () => {
+        setSearchSubmitBtn(!searchSubmitBtn)
+        setPage(1)
+    }
+
     const handleClickBtn = async (massageID: string) => {
         router.push(`/reserve/${massageID}`)
     }
@@ -94,7 +99,7 @@ function MassageList() {
                                         onChange={(e) => setSearchbox(e.target.value)}
                                     />
                                     <button className='btn bg-rose-600 hover:bg-rose-700 text-white col-span-2 md:col-span-1'
-                                        onClick={() => setSearchSubmitBtn(!searchSubmitBtn)}
+                                        onClick={() => handleSearch()}
                                     >Enter</button>
                                 </div>
                             </div>
