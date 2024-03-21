@@ -11,7 +11,7 @@ function Navbar() {
 
     const router = useRouter()
 
-    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token")? true : false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleSignOut = () => {
 
@@ -28,8 +28,10 @@ function Navbar() {
                 console.log(response)
                 if (response.data.success === true) {
 
-                    // clear token from browser
-                    localStorage.removeItem('token')
+                    if (typeof window !== 'undefined') {
+                        // clear token from browser
+                        localStorage.removeItem('token')
+                    }
 
                     setIsLoggedIn(!isLoggedIn)
 
@@ -48,11 +50,14 @@ function Navbar() {
 
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            setIsLoggedIn(true);
-        } else {
-            setIsLoggedIn(false);
+
+        if(typeof window !== 'undefined') {
+            const token = localStorage.getItem('token');
+            if (token) {
+                setIsLoggedIn(true);
+            } else {
+                setIsLoggedIn(false);
+            }
         }
     }, [isLoggedIn]);
 
