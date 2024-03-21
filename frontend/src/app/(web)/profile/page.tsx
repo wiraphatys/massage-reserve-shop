@@ -49,7 +49,7 @@ function ProfilePage() {
                 setEmail(user.email)
                 setPassword(user.password)
                 setRole(user.role),
-                setTel(user.tel)
+                    setTel(user.tel)
                 setId(user._id)
             }
         } catch (err: any) {
@@ -124,35 +124,36 @@ function ProfilePage() {
     }
 
 
-  return (
-      <div className='hero min-h-screen'>
-          <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <form className="card-body">
-                  <div className="form-control">
-                      <label className="label">
-                          <span className="label-text">Name</span>
-                      </label>
-                      <input type="text" placeholder="name" className="input input-bordered" required value={name}
-                          onChange={(e) => setName(e.target.value)}
-                      />
-                  </div>
-                  <div className="form-control">
-                      <label className="label">
-                          <span className="label-text">Telephone</span>
-                      </label>
-                      <input type="text" placeholder="telephone" className="input input-bordered" required value={tel}
-                          onChange={(e) => setTel(e.target.value)}
-                      />
-                  </div>
-                  <div className="form-control">
-                      <label className="label">
-                          <span className="label-text">Email</span>
-                      </label>
-                      <input type="email" placeholder="email" className="input input-bordered" required value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                      />
-                  </div>
-                  {/* <div className="form-control">
+    return (
+        <>
+            <div className='hero min-h-screen animate-fade-up'>
+                <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                    <form className="card-body">
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input type="text" placeholder="name" className="input input-bordered" required value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Telephone</span>
+                            </label>
+                            <input type="text" placeholder="telephone" className="input input-bordered" required value={tel}
+                                onChange={(e) => setTel(e.target.value)}
+                            />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Email</span>
+                            </label>
+                            <input type="email" placeholder="email" className="input input-bordered" required value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        {/* <div className="form-control">
                       <label className="label">
                           <span className="label-text">New Password</span>
                       </label>
@@ -160,51 +161,52 @@ function ProfilePage() {
                           onChange={(e) => setPassword(e.target.value)}
                       />
                   </div> */}
-                  {/* สร้าง checkbox หรือ toggle switch เพื่อให้ user เลือกการอัพเดต password */}
-                  <div className="form-control">
-                      <label className="cursor-pointer label">
-                          <span className="label-text font-semibold">Update Password</span>
-                          <input
-                              type="checkbox"
-                              className="toggle toggle-success"
-                              checked={updatePassword}
-                              onChange={() => setUpdatePassword(!updatePassword)}
-                          />
-                      </label>
-                  </div>
-                  {/* ถ้า user เลือกใส่รหัสผ่านใหม่ให้แสดง input element สำหรับใส่รหัสผ่าน */}
-                  {updatePassword && (
-                      <div className="form-control">
-                          <label className="label">
-                              <span className="label-text">New Password</span>
-                          </label>
-                          <input
-                              type="password"
-                              placeholder="new password"
-                              className="input input-bordered"
-                              required
-                              value={password}
-                              onChange={(e) => setPassword(e.target.value)}
-                          />
-                      </div>
-                  )}
-                  <div className="form-control">
-                      <label className="label">
-                          <span className="label-text">Role</span>
-                      </label>
-                      <input type="text" placeholder="role" className="input input-bordered" required value={role} disabled
-                          onChange={(e) => setPassword(e.target.value)}
-                      />
-                  </div>
-                  <div className="form-control mt-6">
-                      <button className="btn btn-outline btn-success" type='submit'
-                          onClick={(e) => handleSubmit(e)}
-                      >Update Profile</button>
-                  </div>
-              </form>
-          </div>
-    </div>
-  )
+                        {/* สร้าง checkbox หรือ toggle switch เพื่อให้ user เลือกการอัพเดต password */}
+                        <div className="form-control">
+                            <label className="cursor-pointer label">
+                                <span className="label-text font-semibold">Update Password</span>
+                                <input
+                                    type="checkbox"
+                                    className="toggle toggle-success"
+                                    checked={updatePassword}
+                                    onChange={() => setUpdatePassword(!updatePassword)}
+                                />
+                            </label>
+                        </div>
+                        {/* ถ้า user เลือกใส่รหัสผ่านใหม่ให้แสดง input element สำหรับใส่รหัสผ่าน */}
+                        {updatePassword && (
+                            <div className="form-control animate-fade-right">
+                                <label className="label">
+                                    <span className="label-text">New Password</span>
+                                </label>
+                                <input
+                                    type="password"
+                                    placeholder="new password"
+                                    className="input input-bordered"
+                                    required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+                        )}
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Role</span>
+                            </label>
+                            <input type="text" placeholder="role" className="input input-bordered" required value={role} disabled
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        <div className="form-control mt-6">
+                            <button className="btn btn-outline btn-success" type='submit'
+                                onClick={(e) => handleSubmit(e)}
+                            >Update Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default ProfilePage

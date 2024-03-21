@@ -159,7 +159,7 @@ function ReservePage({ params }: Props) {
                 loading ? (
                     <Loading />
                 ) : (
-                        <div className='container min-h-screen py-10 lg:py-20 px-10 md:px-0 mx-auto lg:w-1/3'>
+                        <div className='container min-h-screen py-10 lg:py-20 px-10 md:px-0 mx-auto lg:w-1/3 animate-fade-up'>
                             <p className='font-bold text-3xl text-center pt-6 text-emerald-900'>Target Reservation</p>
                             <div className='border p-4 mt-4 rounded-xl hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white'>
                                 <h2 className='font-bold text-lg'>{reservation.massage.name}</h2>

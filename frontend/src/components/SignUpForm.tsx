@@ -34,24 +34,29 @@ function SignInForm() {
                         icon: 'success',
                         timer: 2000
                     })
-
-                    // localStorage.setItem(config.tokenName, res.data.token);
                     
                     setTimeout(() => {
                         router.push('/signin')
                     }, 1000)
+                } else {
+                    throw new Error("Sign Up failed.")
                 }
             })
-            // console.log("result", response.data)
-        } catch (e) {
-            console.log(e)
+        } catch (e: any) {
+            Swal.fire({
+                title: "Sign Up Error",
+                text: e.response.data.message,
+                icon: "error",
+                timer: 2000
+            })
+            console.log(e.response.data.message)
         }
     }
 
     return (
         <div className="hero min-h-screen bg-emerald-100" >
             <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="text-center lg:text-left lg:ml-12">
+                <div className="text-center lg:text-left lg:ml-12 animate-fade-right">
                     <h1 className="text-5xl font-bold">Sign Up now!</h1>
                     <p className="py-6">Make your massage experience memorable with MRS today! Sign up for free and start reserving instantly.</p>
                 </div>

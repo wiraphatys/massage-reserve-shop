@@ -11,7 +11,7 @@ function Navbar() {
 
     const router = useRouter()
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token")? true : false);
 
     const handleSignOut = () => {
 

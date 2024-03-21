@@ -59,7 +59,7 @@ function SignInForm() {
   return (
       <div className="hero min-h-screen bg-emerald-100" >
           <div className="hero-content flex-col lg:flex-row-reverse">
-              <div className="text-center lg:text-left lg:ml-12">
+              <div className="text-center lg:text-left lg:ml-12 animate-fade-right">
                   <h1 className="text-5xl font-bold">Sign In now!</h1>
                   <p className="py-6">Welcome to MRS - Your Gateway to Relaxation and Wellness. Sign in to start your journey.</p>
               </div>

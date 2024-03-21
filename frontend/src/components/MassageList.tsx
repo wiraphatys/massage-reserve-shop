@@ -88,7 +88,7 @@ function MassageList() {
                 loading ? (
                     <Loading />
                 ) : (
-                    <>
+                        <>
                             <p className='font-bold text-3xl text-center pt-6 pb-4 text-emerald-900'>Massage List</p>
                             <div className="form-control">
                                 <label className='label'>
@@ -129,7 +129,7 @@ function MassageList() {
                                 {massageList.map((massage: MassageItem) => (
                                     <div key={massage._id} id={massage._id}
                                         className='border p-4 my-4 rounded-xl hover:shadow-lg transition duration-300 
-                    ease-in-out transform hover:scale-105 bg-white'>
+                                        ease-in-out transform hover:scale-105 bg-white animate-fade-up animate-once'>
                                         <h2 className='font-bold text-lg'>{massage.name}</h2>
                                         <p className='text-gray-600 my-2'>
                                             <LocationOnIcon className='text-teal-400' /> {massage.address}, {massage.province}
