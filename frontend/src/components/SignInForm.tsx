@@ -18,7 +18,7 @@ function SignInForm() {
         try {
             e.preventDefault()
             const user = { email, password }
-            await axios.post(`${config.api}/auth/login`, user, {withCredentials: true}).then((res) => {
+            await axios.post(`${config.api}/auth/login`, user).then((res) => {
                 if (res.data.success === true) {
                     Swal.fire({
                         title: 'Sign In',

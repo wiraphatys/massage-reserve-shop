@@ -25,7 +25,7 @@ function SignInForm() {
                 tel,
                 role: "user"
              }
-            await axios.post(`${config.api}/auth/register`, payload, { withCredentials: true }).then((res) => {
+            await axios.post(`${config.api}/auth/register`, payload).then((res) => {
                 if (res.data.success === true) {
 
                     Swal.fire({

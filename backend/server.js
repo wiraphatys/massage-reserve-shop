@@ -41,10 +41,7 @@ app.use(helmet()); // Sets various HTTP headers for security
 app.use(xss()); // To prevent XSS attacks
 app.use(limiter); // Apply rate limiting
 app.use(hpp()); // To protect against HTTP Parameter Pollution attacks
-app.use(cors({
-    origin: 'https://massage-reserve-shop-client.vercel.app/',
-    credentials: true
-})); // Enable CORS
+app.use(cors()); // Enable CORS
 
 // Routes
 app.use('/api/massages', require("./routes/massageRouter"));
