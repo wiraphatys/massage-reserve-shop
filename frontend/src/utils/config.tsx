@@ -1,5 +1,5 @@
 const config = {
-    api: "http://localhost:3000/api",
+    api: "https://massage-reserve-shop-api.vercel.app/api",
     tokenName: 'token',
     headers: () => {
         return {
