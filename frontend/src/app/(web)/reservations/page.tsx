@@ -160,9 +160,9 @@ function ReservationPage() {
 
                   {
                     resvList.length === 0 ? (
-                      <div className="border p-4 px-8 mt-4 rounded-xl hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white flex justify-between animate-fade-up">
+                      <div className="border p-4 px-8 mt-4 rounded-xl hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white block text-center lg:flex lg:justify-between animate-fade-up">
                         <p className='font-semibold mt-1'>Reservation in history is empty.</p>
-                        <a className="btn btn-sm btn-accent text-white" href="/massages">make new reservation</a>
+                        <a className="btn btn-sm btn-accent text-white mt-4 lg:mt-0" href="/massages">make new reservation</a>
                       </div>
                     ) : ''
                   }
