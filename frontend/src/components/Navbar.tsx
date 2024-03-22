@@ -81,6 +81,14 @@ function Navbar() {
                             }
                             <li><a href='/contact'>Contact</a></li>
                             <li><a href='/about'>About</a></li>
+                            {
+                                isLoggedIn && (
+                                    <>
+                                        <li><a href='/profile'>Profile</a></li>
+                                        <li><button onClick={handleSignOut}>Logout</button></li>
+                                    </>
+                                )
+                            }
                         </ul>
                     </div>
 
@@ -122,7 +130,7 @@ function Navbar() {
                 <div className="navbar-end">
                     {isLoggedIn && (
                         <>
-                            <div className="dropdown dropdown-end block md:hidden">
+                            {/* <div className="dropdown dropdown-end block md:hidden">
                                 <div>
                                     <button className='btn btn-ghost'><AccountCircleIcon fontSize="large" /></button>
                                 </div>
@@ -130,7 +138,7 @@ function Navbar() {
                                     <li><a className='btn btn-success btn-sm text-gray-200 mb-2' href='/profile'>Profile</a></li>
                                     <li><button className='btn btn-error btn-outline btn-sm' onClick={handleSignOut}>Logout</button></li>
                                 </ul>
-                            </div>
+                            </div> */}
 
                             <div className="dropdown dropdown-end hidden md:block">
                                 <div>
