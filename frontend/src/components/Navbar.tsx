@@ -80,7 +80,7 @@ function Navbar() {
                                     : (<li><a href='/reservations' className='btn-disabled text-gray-400'>Reservation</a></li>)
                             }
                             <li><a href='/contact'>Contact</a></li>
-                            <li><a>About</a></li>
+                            <li><a href='/about'>About</a></li>
                         </ul>
                     </div>
 
@@ -98,7 +98,7 @@ function Navbar() {
                             : (<li><a href='/reservations' className='btn-disabled text-gray-400'>Reservation</a></li>)
                         }
                         <li><a href='/contact'>Contact</a></li>
-                        <li><a>About</a></li>
+                        <li><a href='/about'>About</a></li>
                     </ul>
                 </div>
 
