@@ -3,7 +3,7 @@ import React from 'react'
 function AboutBody() {
     return (
         <div className='bg-white'>
-            <div className='container mx-auto lg:w-1/2 animate-fade-up'>
+            <div className='container mx-auto lg:w-1/2 animate-fade-up px-12'>
                 <div className='text-lg text-center pt-20 pb-8'>
                     <p>At our massage reservation website, we're committed to redefining the standards of premium relaxation.
                         We believe that accessing exceptional massage experiences should be seamless, enriching,
