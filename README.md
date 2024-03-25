@@ -49,4 +49,6 @@ JWT_COOKIE_EXPIRE=
 ```
 
 Here's the deployed website on Vercel:
-`https://swdevprac2-project-bankyvineyardohoyo-and-friend.vercel.app/`
+```bash
+https://swdevprac2-project-bankyvineyardohoyo-and-friend.vercel.app/
+```
