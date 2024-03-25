@@ -27,11 +27,11 @@ This is a full-stack web application that serves as a marketplace for customers 
 To run the project locally, follow these steps:
 
 1. Clone the repository
-2. Navigate to the backend directory: `cd backend/`
-3. Run the backend server: `npm run dev`
+2. Navigate to the backend directory: ```cd backend/```
+3. Run the backend server: ```npm run dev```
 4. Open a new terminal window at the root directory
-5. Navigate to the frontend directory: `cd frontend/`
-6. Run the frontend development server: `npm run dev`
+5. Navigate to the frontend directory: ```cd frontend/```
+6. Run the frontend development server: ```npm run dev```
 
 Before running the backend server, you need to set up your environment variables in a `config.env` file with the following structure:
 
