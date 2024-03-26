@@ -17,7 +17,9 @@ interface resvItem {
     name: string;
     tel: string;
   };
-  user: string
+  user: {
+    email: string;
+  };
   resvDate: string;
   _id: string;
 }
@@ -50,7 +52,9 @@ function ReservationPage() {
       name: "",
       tel: "",
     },
-    user: "",
+    user: {
+      email: ""
+    },
     resvDate: "",
     _id: ""
   }]);
@@ -183,7 +187,7 @@ function ReservationPage() {
                       {
                         user.role === "admin" ?
                           <p className='text-gray-600 my-2'>
-                            <PersonIcon className='text-teal-400' /> {reservation.user}
+                            <PersonIcon className='text-teal-400' /> {reservation.user.email}
                           </p>
                           : ''
                       }
