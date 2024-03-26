@@ -13,17 +13,26 @@ exports.getReservations = async (req, res, next) => {
             query = Reservation.find({ massage: req.params.massageId }).populate({
                 path: "massage",
                 select: "name address tel"
+            }).populate({
+                path: "user",
+                select: "email"
             })
         } else {
             query = Reservation.find({}).populate({
                 path: "massage",
                 select: "name address tel"
+            }).populate({
+                path: "user",
+                select: "email"
             })
         }
     } else {
         query = Reservation.find({ user: req.user.id }).populate({
             path: "massage",
             select: "name address tel"
+        }).populate({
+            path: "user",
+            select: "email"
         })
     }
     try {
