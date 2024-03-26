@@ -19,7 +19,7 @@ function Banner() {
 
 
     return (
-        <div className="hero min-h-screen" style={{ backgroundImage: 'url(/img/banner1.jpg)' }}>
+        <div className="hero min-h-screen" style={{ backgroundImage: 'url(/img/banner1.jpg)' }} data-testid="hero-section">
             <div className="hero-overlay bg-opacity-60"></div>
             <div className="hero-content text-center text-white">
                 <div className="max-w-xl animate-fade-down">
